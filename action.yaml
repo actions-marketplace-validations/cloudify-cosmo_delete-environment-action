@@ -1,0 +1,22 @@
+name: "Delete Cloudify Environment"
+description: "Deletes a Cloudify environment"
+inputs:
+  environment-name:
+    description: "The ID of the environment"
+    required: true
+  ignore-failure:
+    description: "Whether or not to ignore failures during deletion"
+    required: false
+    default: 'false'
+runs:
+  using: "docker"
+  image: "docker://isaaccfy/cfy-ci:latest"
+  entrypoint: "cfyci"
+  args:
+    - 'delete-environment'
+    - '--init'
+    - '--name'
+    - ${{ inputs.environment-name }}
+    - '--ignore-failure'
+    - ${{ inputs.ignore-failure }}
+
