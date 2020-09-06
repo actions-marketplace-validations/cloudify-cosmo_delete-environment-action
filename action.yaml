@@ -1,22 +1,32 @@
-name: "Delete Cloudify Environment"
-description: "Deletes a Cloudify environment"
+name: Delete Cloudify Environment
+author: Isaac Shabtay
+description: Deletes a Cloudify environment
+branding:
+  icon: cloud
+  color: white
 inputs:
   environment-name:
-    description: "The ID of the environment"
+    description: Name of Cloudify environment to delete
     required: true
+  delete-blueprint:
+    description: |
+      If no more deployments exist for the blueprint, then delete the
+      blueprint as well
+    required: false
+    default: 'false'
   ignore-failure:
-    description: "Whether or not to ignore failures during deletion"
+    description: Whether or not to ignore failures during deletion
     required: false
     default: 'false'
 runs:
-  using: "docker"
-  image: "docker://isaaccfy/cfy-ci:latest"
-  entrypoint: "cfyci"
+  using: docker
+  image: docker://isaaccfy/cfy-ci:latest
+  entrypoint: cfyci
   args:
-    - 'delete-environment'
-    - '--init'
+    - delete-environment
     - '--name'
     - ${{ inputs.environment-name }}
+    - '--delete-blueprint'
+    - ${{ inputs.delete-blueprint }}
     - '--ignore-failure'
     - ${{ inputs.ignore-failure }}
-
