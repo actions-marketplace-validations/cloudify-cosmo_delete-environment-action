@@ -22,7 +22,7 @@ jobs:
   test_job:
     steps:
       - name: Delete environment
-        uses: cloudify-cosmo/delete-environment-action@v1.1
+        uses: cloudify-cosmo/delete-environment-action@v1.2
         with:
           environment-name: "test-$GITHUB_RUN_ID"
 ```
